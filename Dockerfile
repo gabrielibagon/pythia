@@ -63,8 +63,8 @@ EXPOSE 8888 8888
 # Make Pythia workspace
 RUN mkdir Pythia 
 
-# Add local pythia clone inside container
-ADD ./ /Pythia
+# # Add local pythia clone inside container
+# ADD ./ /Pythia
 
 # Make Pythia current working dir
 WORKDIR "/Pythia"
