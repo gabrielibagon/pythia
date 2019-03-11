@@ -2,6 +2,7 @@ FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/root/.local/bin:$PATH
 
 RUN apt-get update
 
