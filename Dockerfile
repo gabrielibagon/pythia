@@ -65,7 +65,23 @@ RUN mkdir Pythia
 # Add local pythia clone inside container
 ADD ./ /Pythia
 
-# Make Pythia current workign dir
+# Make Pythia current working dir
 WORKDIR "/Pythia"
+
+RUN pwd
+
+# Download detectron pretrained model
+ENV S3ADDRESS s3://aira-ai/aira-vqa-demo/detectron/
+ENV DETECTRON_DIR vqa_detectron_master/
+RUN mkdir vqa_detectron_master\
+    && aws s3 cp ${S3ADDRESS} ${DETECTRON_DIR} --recursive
+
+# Download language model
+RUN cd data \
+    && wget https://dl.fbaipublicfiles.com/pythia/data/vqa2.0_glove.6B.300d.txt.npy \
+    && wget https://dl.fbaipublicfiles.com/pythia/data/vocabulary_vqa.txt \
+    && wget https://dl.fbaipublicfiles.com/pythia/data/answers_vqa.txt \
+    && wget https://dl.fbaipublicfiles.com/pythia/data/large_vocabulary_vqa.txt \
+    && wget https://dl.fbaipublicfiles.com/pythia/data/large_vqa2.0_glove.6B.300d.txt.npy
 
 ENTRYPOINT jupyter notebook --allow-root --ip=127.0.0.1 --no-browser
